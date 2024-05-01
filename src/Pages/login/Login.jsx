@@ -1,9 +1,10 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
 import axios from "axios";
 import { object, string } from "yup";
 import { toast } from "react-toastify";
-import style from "./Login.module.css"; // تأكد من تغيير الاسم إلى الاسم الصحيح لملف النمط
-
+import style from "./Login.module.css"; 
+import { Link } from 'react-router-dom'
 export default function Login() {
   const [user, setUser] = useState({
     email: "",
@@ -98,6 +99,11 @@ export default function Login() {
         <button type="submit" className={style.button}>
           Login
         </button>
+      
+         
+        <Link to="/ForgetPassword" className={style.forgetPasswordButton} > Forget password</Link>
+          
+       
       </form>
     </div>
   );
