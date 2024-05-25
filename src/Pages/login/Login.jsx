@@ -1,15 +1,18 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import { object, string } from "yup";
 import { toast } from "react-toastify";
-import style from "./Login.module.css"; 
-import { Link } from 'react-router-dom'
+import style from "./Login.module.css";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
 export default function Login() {
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
+  const { setToken } = useContext(UserContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,13 +46,7 @@ export default function Login() {
     }
 
     try {
-      const formData = new FormData();
-      formData.append("email", user.email);
-      formData.append("password", user.password);
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_API}/auth/signin`,
-        formData
-      );
+      const { data } = await axios.post(`/auth/signin`, user);
 
       setUser({
         email: "",
@@ -57,7 +54,9 @@ export default function Login() {
       });
 
       if (data.message === "success") {
+        setToken(data.token);
         toast.success("Logged in successfully");
+        navigate("/");
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong!");
@@ -99,11 +98,10 @@ export default function Login() {
         <button type="submit" className={style.button}>
           Login
         </button>
-      
-         
-        <Link to="/ForgetPassword" className={style.forgetPasswordButton} > Forget password</Link>
-          
-       
+
+        <Link to="/send-code" className={style.forgetPasswordButton}>
+          Forget password
+        </Link>
       </form>
     </div>
   );

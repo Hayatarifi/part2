@@ -1,38 +1,30 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./style.css";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import Loader from "../../components/Loader/Loader";
 import { Info } from "lucide-react";
+import { LoadingContext } from "../../context/LoadingContext";
 
 const CategoryProducts = () => {
   const { categoryId } = useParams();
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { loading, handleLoading } = useContext(LoadingContext);
 
   async function getCategoryProducts() {
-    try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_API}/products/category/${categoryId}`
-      );
-      if (data.message == "success") {
-        setProducts(data.products);
-      }
-    } catch (error) {
-      toast.error(error.response.data.message || "Something went wrong");
-    } finally {
-      setLoading(false);
+    const { data } = await axios.get(`/products/category/${categoryId}`);
+    if (data.message == "success") {
+      setProducts(data.products);
     }
   }
 
   useEffect(() => {
-    getCategoryProducts();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    handleLoading(getCategoryProducts, "get category");
   }, [categoryId]);
 
-  if (loading) {
+  if (loading["get category"]) {
     return <Loader />;
   }
 

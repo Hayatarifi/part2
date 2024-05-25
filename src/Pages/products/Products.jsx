@@ -1,44 +1,34 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Categories from "../categories/Categories";
 import axios from "axios";
 import { toast } from "react-toastify";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import "./Products.css";
 import Loader from "../../components/Loader/Loader";
+import { LoadingContext } from "../../context/LoadingContext";
 
 export default function Products() {
   const limit = 2;
   const [page, setPage] = useState(1);
   const [products, setProducts] = useState([]);
   const [pagesCount, setPagesCount] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const { handleLoading, loading } = useContext(LoadingContext);
 
   async function getProducts() {
-    setLoading(true);
-    try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_API}/products?page=${page}&limit=${limit}`
-      );
-      if (data.message == "success") {
-        console.log(data);
-        setProducts(data.products);
-        setPagesCount(data.total / limit);
-      }
-    } catch (error) {
-      toast.error(error.reponse.data.message || "Something went wrong");
-    } finally {
-      setLoading(false);
+    const { data } = await axios.get(`/products?page=${page}&limit=${limit}`);
+    if (data.message == "success") {
+      setProducts(data.products);
+      setPagesCount(data.total / limit);
     }
   }
 
   useEffect(() => {
-    getProducts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    handleLoading(getProducts, "get products");
   }, [page]);
 
   return (
     <div className="all-products">
-      {loading ? (
+      {loading["get products"] ? (
         <Loader size={60} />
       ) : (
         <div className="products">

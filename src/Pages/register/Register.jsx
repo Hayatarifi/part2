@@ -58,10 +58,7 @@ export default function Register() {
       formData.append("email", user.email);
       formData.append("password", user.password);
       formData.append("image", user.image);
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_API}/auth/signup`,
-        formData
-      );
+      const { data } = await axios.post(`/auth/signup`, formData);
       setUser({
         userName: "",
         email: "",

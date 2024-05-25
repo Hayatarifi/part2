@@ -3,6 +3,9 @@
   margin: 0;
   box-sizing: border-box;
 }
+main {
+  height: auto;
+}
 
 .category-card {
   border: 1px solid #333;
@@ -14,4 +17,5 @@
 body {
   background-color: #ffff;
   font-family: Arial, Helvetica, sans-serif;
+
 }

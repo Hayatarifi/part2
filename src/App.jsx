@@ -5,15 +5,23 @@ import Login from "./Pages/login/Login.jsx";
 import Register from "./Pages/register/Register.jsx";
 import Cart from "./Pages/Cart/Cart.jsx";
 import Home from "./Pages/home/Home.jsx";
+import ForgotPassword from "./Pages/Password/ForgetPassword.jsx";
 import { ToastContainer } from "react-toastify";
 import CategoryProducts from "./Pages/CategoryProducts/CategoryProducts.jsx";
+import UserContextProvider from "./context/UserContext.jsx";
+import { CartContextProvider } from "./context/CartContext.jsx";
+import LoadingContextProvider from "./context/LoadingContext.jsx";
+import SendCode from "./Pages/Password/SendCode.jsx";
+import Checkout from "./Pages/Checkout/Checkout.jsx";
+import OrderConfirmation from "./Pages/OrderConfirmation/OrderConfirmation.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
     children: [
       {
-        path: "/Home",
+        path: "/",
         element: <Home />,
       },
       {
@@ -34,24 +42,48 @@ const router = createBrowserRouter([
       },
       {
         path: "/products/category/:categoryId",
-        element: <CategoryProducts />
-      }
-    ]
-    
-  }
+        element: <CategoryProducts />,
+      },
+      {
+        path: "/forget-password",
+        element: <ForgotPassword />,
+      },
+      {
+        path: "/send-code",
+        element: <SendCode />,
+      },
+      {
+        path: "/checkout",
+        element: <Checkout />,
+      },
+      {
+        path: "/order-confirmation",
+        element: <OrderConfirmation />,
+      },
+      
+      
+    ],
+  },
 ]);
 
 export default function App() {
   return (
-    <>
-      <ToastContainer
-        autoClose={2500}
-        position="top-center"
-        draggable={true}
-        pauseOnHover={true}
-        closeOnClick
-      />
-      <RouterProvider router={router} />
-    </>
+    <LoadingContextProvider>
+      <UserContextProvider>
+        <CartContextProvider>
+          <ToastContainer
+            position="bottom-center"
+            autoClose={1500}
+            hideProgressBar={false}
+            closeOnClick
+            pauseOnHover={false}
+            draggable
+            theme="light"
+          />
+          <RouterProvider router={router} />
+        </CartContextProvider>
+      </UserContextProvider>
+    </LoadingContextProvider>
+    
   );
 }
