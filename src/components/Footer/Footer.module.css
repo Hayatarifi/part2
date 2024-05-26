@@ -1,14 +1,12 @@
 .footer {
-    background-color: #7e5454;
-    padding: 20px;
-    text-align: center;
-  }
-  .footer p {
-    text-align: center; 
-    
-  }
-  .container {
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  
+  background-color: #E0E0E0;
+  padding: 20px;
+  text-align: center;
+}
+.footer p {
+  text-align: center;
+}
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}

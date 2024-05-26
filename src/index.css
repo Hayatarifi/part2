@@ -17,5 +17,13 @@ main {
 body {
   background-color: #ffff;
   font-family: Arial, Helvetica, sans-serif;
+}
 
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.layout main {
+  flex: 1;
 }

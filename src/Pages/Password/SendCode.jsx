@@ -1,7 +1,4 @@
 import React, { useContext, useState } from "react";
-// import Input from "../../pages/Input";
-// import { useFormik } from "formik";
-// import { sendCodeSchema } from "../validation/Validation";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";

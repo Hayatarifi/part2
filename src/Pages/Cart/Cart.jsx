@@ -5,7 +5,6 @@ import "./Cart.css";
 import { CartContext } from "../../context/CartContext";
 import { LoadingContext } from "../../context/LoadingContext";
 
-
 export default function Cart() {
   const {
     removeItemContext,

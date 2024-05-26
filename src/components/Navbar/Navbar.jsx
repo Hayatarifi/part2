@@ -17,7 +17,7 @@ function Navbar() {
               Home
             </Link>
           </li>
-
+        
           <li>
             <Link to="/Products" className={style.NavLink}>
               Products
@@ -41,11 +41,18 @@ function Navbar() {
                   </span>
                 </Link>
               </li>
+              
               <li>
                 <div className={style.NavLink} onClick={logout}>
                   Logout
                 </div>
               </li>
+              <li>
+                <Link to="/my-orders" className={style.NavLink}>
+                My Orders
+                </Link>
+              </li>
+              
             </>
           ) : (
             <>
@@ -60,6 +67,7 @@ function Navbar() {
                   Login
                 </Link>
               </li>
+              
             </>
           )}
         </ul>

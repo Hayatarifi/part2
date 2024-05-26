@@ -14,6 +14,8 @@ import LoadingContextProvider from "./context/LoadingContext.jsx";
 import SendCode from "./Pages/Password/SendCode.jsx";
 import Checkout from "./Pages/Checkout/Checkout.jsx";
 import OrderConfirmation from "./Pages/OrderConfirmation/OrderConfirmation.jsx";
+import MyOrders from "./Pages/MyOrder/MyOrder.jsx";
+import { OrderContextProvider } from "./context/OrderContext.jsx";
 
 const router = createBrowserRouter([
   {
@@ -57,11 +59,14 @@ const router = createBrowserRouter([
         element: <Checkout />,
       },
       {
+        path: "/my-orders",
+        element: <MyOrders />,
+      },
+
+      {
         path: "/order-confirmation",
         element: <OrderConfirmation />,
       },
-      
-      
     ],
   },
 ]);
@@ -69,21 +74,22 @@ const router = createBrowserRouter([
 export default function App() {
   return (
     <LoadingContextProvider>
-      <UserContextProvider>
-        <CartContextProvider>
-          <ToastContainer
-            position="bottom-center"
-            autoClose={1500}
-            hideProgressBar={false}
-            closeOnClick
-            pauseOnHover={false}
-            draggable
-            theme="light"
-          />
-          <RouterProvider router={router} />
-        </CartContextProvider>
-      </UserContextProvider>
+      <OrderContextProvider>
+        <UserContextProvider>
+          <CartContextProvider>
+            <ToastContainer
+              position="bottom-center"
+              autoClose={1500}
+              hideProgressBar={false}
+              closeOnClick
+              pauseOnHover={false}
+              draggable
+              theme="light"
+            />
+            <RouterProvider router={router} />
+          </CartContextProvider>
+        </UserContextProvider>
+      </OrderContextProvider>
     </LoadingContextProvider>
-    
   );
 }

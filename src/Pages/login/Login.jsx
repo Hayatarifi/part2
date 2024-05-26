@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import React, { useContext, useState } from "react";
 import axios from "axios";
 import { object, string } from "yup";

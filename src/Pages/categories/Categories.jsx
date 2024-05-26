@@ -1,5 +1,4 @@
 import axios from "axios";
-// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect, useContext } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
